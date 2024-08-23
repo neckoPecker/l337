@@ -1,0 +1,135 @@
+#+title:	The Algorithms
+#+author:	Vaughn Chan
+#+date:		2024-08-23
+
+* Introduction
+
+In this document, we look algorithms that are used in programs as a
+technique for solving problems. One definition of algorithms is that
+it is a set of rules that precisely define a sequence of
+operations. If we can master these techniques and
+understand where they can be applied, then we should be more capable
+of solving computational problems. Thus, we have a motivation for
+understanding algorith
+
+* 1.0 Sorting Algorithms
+
+** 1.1 Sorting Introduction
+Given an $n$ array list of numbers (usually integers, but can also be
+used for decimals), arrange the numbers in a way that lists all
+elements, from index $0$ to $n$, the numbers from lowest to highest
+(or highest to lowest).
+
+The below gives the template for a solution to a sorting problem. 
+#+begin_src cpp :results raw :output drawer
+  // Example problem
+  #include <iostream>
+  #include <vector>
+  #include <random>
+
+  std::vector<int> gen_rand_num(unsigned short length)
+  {
+    std::vector<int> rand_vector;
+    for (int i = 0; i < length; i++)
+      {
+        rand_vector.emplace_back(std::rand() % 100 + 1);
+      }
+    return rand_vector;
+  }
+
+  void print_vector(std::vector<int> v)
+  {
+    std::cout << "[ " << v[0];
+    for (int i = 1; i < v.size(); i++)
+      {
+        std::cout << ", " << v[i];
+      }
+    std::cout << " ]" << std::endl;
+  }
+
+  // Implement this sort method
+  std::vector<int> sort(std::vector<int> arr);
+
+  int main ()
+  {
+    std::vector myArr = gen_rand_num(10);
+    // std::vector sortedArr = sort(myArr);
+    // print_vector(sortedArr);
+  }
+#+end_src
+
+** 1.2 Bubble Sort
+Bubble sort is one of the easiest implementations of sorting algorithm
+known. The idea is to have the largest numbers "bubble up" by swapping
+numbers of the greatest magnitude to the top. This algorithm has a
+time complexity of $O(n^2)$, and thus is not very efficient. Despite
+this, it's simplicity allows it to be taught more easily than the
+other more advanced algorithms.
+
+#+begin_src cpp :results raw :output drawer
+  // Example problem
+  #include <iostream>
+  #include <vector>
+  #include <random>
+
+  std::vector<int> gen_rand_num(unsigned short length)
+  {
+    std::vector<int> rand_vector;
+    for (int i = 0; i < length; i++)
+      {
+        rand_vector.emplace_back(std::rand() % 100 + 1);
+      }
+    return rand_vector;
+  }
+
+  void print_vector(std::vector<int> v)
+  {
+    std::cout << "[ " << v[0];
+    for (int i = 1; i < v.size(); i++)
+      {
+        std::cout << ", " << v[i];
+      }
+    std::cout << " ]" << std::endl;
+  }
+
+  // Bubble Sort Implementation
+  std::vector<int> sort(std::vector<int> arr)
+  {
+
+    std::vector sortedArr = arr;
+  
+    for (int i = 0; i < sortedArr.size(); i++)
+      {
+        for (int j = 0; j < sortedArr.size(); j++)
+          {
+            if (sortedArr[i] < sortedArr[j])
+              {
+                std::swap(sortedArr[i], sortedArr[j]);
+              }
+            else
+              {
+                continue;
+              }
+          }
+      }
+
+    return sortedArr;
+  }
+
+  int main ()
+  {
+    std::vector myArr = gen_rand_num(10);
+    std::cout << "Unsorted Vector: \t";
+    print_vector(myArr);
+
+    std::vector sortedArr = sort(myArr);
+    std::cout << "Sorted Vector: \t";
+    print_vector(sortedArr);
+
+    return 0;
+  }
+#+end_src
+
+#+RESULTS:
+Unsorted Vector: 	[ 84, 87, 78, 16, 94, 36, 87, 93, 50, 22 ]
+Sorted Vector: 	[ 16, 22, 36, 50, 78, 84, 87, 87, 93, 94 ]
