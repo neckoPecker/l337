@@ -1,16 +1,16 @@
-#+title:	The Algorithms
-#+author:	Vaughn Chan
-#+date:		2024-08-23
-
-* Table of Contents
-:CONTENTS:
-
-:END:
+* The Algorithms
 :PROPERTIES:
 :TOC:      :include all
 :END:
+:CONTENTS:
+- [[#the-algorithms][The Algorithms]]
+  - [[#introduction][Introduction]]
+    - [[#10-sorting-algorithms][1.0 Sorting Algorithms]]
+      - [[#11-bubble-sort][1.1 Bubble Sort]]
+      - [[#12-insertion-sort][1.2 Insertion Sort]]
+:END:
 
-* Introduction
+** Introduction
 
 In this document, we look algorithms that are used in programs as a
 technique for solving problems. One definition of algorithms is that
@@ -20,7 +20,7 @@ understand where they can be applied, then we should be more capable
 of solving computational problems. Thus, we have a motivation for
 understanding algorithms.
 
-* 1.0 Sorting Algorithms
+*** 1.0 Sorting Algorithms
 
 Given an $n$ array list of numbers (usually integers, but can also be
 used for decimals), arrange the numbers in a way that lists all
@@ -65,7 +65,7 @@ The below gives the template for a solution to a sorting problem.
   }
 #+end_src
 
-** 1.1 Bubble Sort
+**** 1.1 Bubble Sort
 Bubble sort is one of the easiest implementations of sorting algorithm
 known. The idea is to have the largest numbers "bubble up" by swapping
 numbers of the greatest magnitude to the top. This algorithm has a
@@ -141,7 +141,10 @@ other more advanced algorithms.
 | Unsorted Vector: | [ 84, 87, 78, 16, 94, 36, 87, 93, 50, 22 ] |
 | Sorted Vector:   | [ 16, 22, 36, 50, 78, 84, 87, 87, 93, 94 ] |
 
-** 1.2 Insertion Sort
+**** 1.2 Insertion Sort
+:PROPERTIES:
+:TOC:      :include all
+:END:
 Insertion sort is yet another simple algorithm for sorting an
 array. This algorithm uses an auxillary array to hold the sorted array
 and processes on the unsorted array. It goes through each element in
