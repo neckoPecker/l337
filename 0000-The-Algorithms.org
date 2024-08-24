@@ -10,7 +10,7 @@ it is a set of rules that precisely define a sequence of
 operations. If we can master these techniques and
 understand where they can be applied, then we should be more capable
 of solving computational problems. Thus, we have a motivation for
-understanding algorith
+understanding algorithms.
 
 * 1.0 Sorting Algorithms
 
@@ -65,7 +65,8 @@ time complexity of $O(n^2)$, and thus is not very efficient. Despite
 this, it's simplicity allows it to be taught more easily than the
 other more advanced algorithms.
 
-#+begin_src cpp :results raw :output drawer :exports both
+# :results raw :output drawer :exports both
+#+begin_src cpp output drawer :exports both
   #include <iostream>
   #include <vector>
   #include <random>
@@ -129,5 +130,86 @@ other more advanced algorithms.
 #+end_src
 
 #+RESULTS:
-Unsorted Vector: 	[ 84, 87, 78, 16, 94, 36, 87, 93, 50, 22 ]
-Sorted Vector: 	[ 16, 22, 36, 50, 78, 84, 87, 87, 93, 94 ]
+| Unsorted Vector: | [ 84, 87, 78, 16, 94, 36, 87, 93, 50, 22 ] |
+| Sorted Vector:   | [ 16, 22, 36, 50, 78, 84, 87, 87, 93, 94 ] |
+
+** 1.2 Insertion Sort
+Insertion sort is yet another simple algorithm for sorting an
+array. This algorithm uses an auxillary array to hold the sorted array
+and processes on the unsorted array. It goes through each element in
+the unsorted array and puts it into the other array, pushing it to the
+left of the array until it the element we are inserting is greater
+than then element in our sort array. The complexity of this algorithm
+is $O(n^2)$, like bubble sort.
+
+#+begin_src cpp output drawer :exports both
+  #include <iostream>
+  #include <vector>
+  #include <random>
+
+  std::vector<int> gen_rand_num(unsigned short length)
+  {
+    std::vector<int> rand_vector;
+    for (int i = 0; i < length; i++)
+      {
+        rand_vector.emplace_back(std::rand() % 100 + 1);
+      }
+    return rand_vector;
+  }
+
+  void print_vector(std::vector<int> v)
+  {
+    std::cout << "[ " << v[0];
+    for (int i = 1; i < v.size(); i++)
+      {
+        std::cout << ", " << v[i];
+      }
+    std::cout << " ]" << std::endl;
+  }
+
+  // Insertion Sort Implementation
+  std::vector<int> sort(std::vector<int> arr)
+  {
+
+    std::vector<int> unsortedArr = arr;
+    std::vector<int> sortedArr;
+
+    for (int element : unsortedArr)
+      {
+        // Adding the element to beginning of sortedArr
+        sortedArr.emplace_back(element);
+
+        // Swapping values until it reaches correct position
+        for (int j = sortedArr.size() - 1; j > 0; j--)
+          {
+            if (sortedArr[j] < sortedArr[j-1])
+              {
+                std::swap (sortedArr[j], sortedArr[j-1]);
+              }
+            else
+              {
+                break;
+              }
+          }
+      }
+
+    return sortedArr;
+  }
+
+  int main ()
+  {
+    std::vector myArr = gen_rand_num(10);
+    std::cout << "Unsorted Vector: \t";
+    print_vector(myArr);
+
+    std::vector sortedArr = sort(myArr);
+    std::cout << "Sorted Vector: \t";
+    print_vector(sortedArr);
+
+    return 0;
+  }
+#+end_src
+
+#+RESULTS:
+| Unsorted Vector: | [ 84, 87, 78, 16, 94, 36, 87, 93, 50, 22 ] |
+| Sorted Vector:   | [ 16, 22, 36, 50, 78, 84, 87, 87, 93, 94 ] |
