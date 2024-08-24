@@ -14,7 +14,6 @@ understanding algorith
 
 * 1.0 Sorting Algorithms
 
-** 1.1 Sorting Introduction
 Given an $n$ array list of numbers (usually integers, but can also be
 used for decimals), arrange the numbers in a way that lists all
 elements, from index $0$ to $n$, the numbers from lowest to highest
@@ -58,7 +57,7 @@ The below gives the template for a solution to a sorting problem.
   }
 #+end_src
 
-** 1.2 Bubble Sort
+** 1.1 Bubble Sort
 Bubble sort is one of the easiest implementations of sorting algorithm
 known. The idea is to have the largest numbers "bubble up" by swapping
 numbers of the greatest magnitude to the top. This algorithm has a
@@ -66,8 +65,7 @@ time complexity of $O(n^2)$, and thus is not very efficient. Despite
 this, it's simplicity allows it to be taught more easily than the
 other more advanced algorithms.
 
-#+begin_src cpp :results raw :output drawer
-  // Example problem
+#+begin_src cpp :results raw :output drawer :exports both
   #include <iostream>
   #include <vector>
   #include <random>
