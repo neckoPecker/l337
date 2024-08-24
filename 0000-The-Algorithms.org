@@ -1,7 +1,14 @@
 #+title:	The Algorithms
 #+author:	Vaughn Chan
 #+date:		2024-08-23
-#+OPTIONS:	toc
+
+* Table of Contents
+:CONTENTS:
+
+:END:
+:PROPERTIES:
+:TOC:      :include all
+:END:
 
 * Introduction
 
