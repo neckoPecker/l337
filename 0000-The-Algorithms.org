@@ -1,8 +1,18 @@
-#+title:	The Algorithms
-#+author:	Vaughn Chan
-#+date:		2024-08-23
+* The Algorithms
+:PROPERTIES:
+:TOC:      :include all
+:END:
+:CONTENTS:
+- [[#the-algorithms][The Algorithms]]
+  - [[#introduction][Introduction]]
+  - [[#10-sorting-algorithms][1.0 Sorting Algorithms]]
+    - [[#11-bubble-sort][1.1 Bubble Sort]]
+    - [[#12-insertion-sort][1.2 Insertion Sort]]
+  - [[#20-search-algorithms][2.0 Search Algorithms]]
+    - [[#21-linear-search][2.1 Linear Search]]
+:END:
 
-* Introduction
+** Introduction
 
 In this document, we look algorithms that are used in programs as a
 technique for solving problems. One definition of algorithms is that
@@ -10,11 +20,10 @@ it is a set of rules that precisely define a sequence of
 operations. If we can master these techniques and
 understand where they can be applied, then we should be more capable
 of solving computational problems. Thus, we have a motivation for
-understanding algorith
+understanding algorithms.
 
-* 1.0 Sorting Algorithms
+** 1.0 Sorting Algorithms
 
-** 1.1 Sorting Introduction
 Given an $n$ array list of numbers (usually integers, but can also be
 used for decimals), arrange the numbers in a way that lists all
 elements, from index $0$ to $n$, the numbers from lowest to highest
@@ -58,7 +67,7 @@ The below gives the template for a solution to a sorting problem.
   }
 #+end_src
 
-** 1.2 Bubble Sort
+*** 1.1 Bubble Sort
 Bubble sort is one of the easiest implementations of sorting algorithm
 known. The idea is to have the largest numbers "bubble up" by swapping
 numbers of the greatest magnitude to the top. This algorithm has a
@@ -66,8 +75,8 @@ time complexity of $O(n^2)$, and thus is not very efficient. Despite
 this, it's simplicity allows it to be taught more easily than the
 other more advanced algorithms.
 
-#+begin_src cpp :results raw :output drawer
-  // Example problem
+# :results raw :output drawer :exports both
+#+begin_src cpp output drawer :exports both
   #include <iostream>
   #include <vector>
   #include <random>
@@ -131,5 +140,240 @@ other more advanced algorithms.
 #+end_src
 
 #+RESULTS:
-Unsorted Vector: 	[ 84, 87, 78, 16, 94, 36, 87, 93, 50, 22 ]
-Sorted Vector: 	[ 16, 22, 36, 50, 78, 84, 87, 87, 93, 94 ]
+| Unsorted Vector: | [ 84, 87, 78, 16, 94, 36, 87, 93, 50, 22 ] |
+| Sorted Vector:   | [ 16, 22, 36, 50, 78, 84, 87, 87, 93, 94 ] |
+
+*** 1.2 Insertion Sort
+:PROPERTIES:
+:TOC:      :include all
+:END:
+Insertion sort is yet another simple algorithm for sorting an
+array. This algorithm uses an auxillary array to hold the sorted array
+and processes on the unsorted array. It goes through each element in
+the unsorted array and puts it into the other array, pushing it to the
+left of the array until it the element we are inserting is greater
+than then element in our sort array. The complexity of this algorithm
+is $O(n^2)$, like bubble sort.
+
+#+begin_src cpp output drawer :exports both
+  #include <iostream>
+  #include <vector>
+  #include <random>
+
+  std::vector<int> gen_rand_num(unsigned short length)
+  {
+    std::vector<int> rand_vector;
+    for (int i = 0; i < length; i++)
+      {
+        rand_vector.emplace_back(std::rand() % 100 + 1);
+      }
+    return rand_vector;
+  }
+
+  void print_vector(std::vector<int> v)
+  {
+    std::cout << "[ " << v[0];
+    for (int i = 1; i < v.size(); i++)
+      {
+        std::cout << ", " << v[i];
+      }
+    std::cout << " ]" << std::endl;
+  }
+
+  // Insertion Sort Implementation
+  std::vector<int> sort(std::vector<int> arr)
+  {
+
+    std::vector<int> unsortedArr = arr;
+    std::vector<int> sortedArr;
+
+    for (int element : unsortedArr)
+      {
+        // Adding the element to beginning of sortedArr
+        sortedArr.emplace_back(element);
+
+        // Swapping values until it reaches correct position
+        for (int j = sortedArr.size() - 1; j > 0; j--)
+          {
+            if (sortedArr[j] < sortedArr[j-1])
+              {
+                std::swap (sortedArr[j], sortedArr[j-1]);
+              }
+            else
+              {
+                break;
+              }
+          }
+      }
+
+    return sortedArr;
+  }
+
+  int main ()
+  {
+    std::vector myArr = gen_rand_num(10);
+    std::cout << "Unsorted Vector: \t";
+    print_vector(myArr);
+
+    std::vector sortedArr = sort(myArr);
+    std::cout << "Sorted Vector: \t";
+    print_vector(sortedArr);
+
+    return 0;
+  }
+#+end_src
+
+#+RESULTS:
+| Unsorted Vector: | [ 84, 87, 78, 16, 94, 36, 87, 93, 50, 22 ] |
+| Sorted Vector:   | [ 16, 22, 36, 50, 78, 84, 87, 87, 93, 94 ] |
+
+** 2.0 Search Algorithms
+
+Given an $n$ array list of numbers, find the index where an element is
+located (otherwise, return -1 if it does not exist).
+
+The below gives a template for a solution to the search problem.
+#+begin_src cpp :results raw :output drawer
+  // Example problem
+  #include <assert.h>
+  #include <iostream>
+  #include <vector>
+  #include <random>
+
+  std::vector<int> gen_rand_num(unsigned short length)
+  {
+    std::vector<int> rand_vector;
+    for (int i = 0; i < length; i++)
+      {
+        rand_vector.emplace_back(std::rand() % 20 + 1);
+      }
+    return rand_vector;
+  }
+
+  void print_vector(std::vector<int> v)
+  {
+    std::cout << "[ " << v[0];
+    for (int i = 1; i < v.size(); i++)
+      {
+        std::cout << ", " << v[i];
+      }
+    std::cout << " ]" << std::endl;
+  }
+
+  // Implement this search method
+  int search(std::vector<int> arr, int element);
+
+  int main ()
+  {
+    // Create the new vector
+    std::vector myArr = gen_rand_num(100);
+
+    // Search for a specific number
+    int numToFind = std::rand() % 20 + 1;
+
+    // Search myArr for element
+    int index = search(myArr, numToFind);
+
+    print_vector(myArr);
+
+    if (index != -1)
+      {
+        std::cout << "Find: " << numToFind << "\n"
+                  << "Index: " << index << "\n"
+                  << "Is equal? " << (numToFind == myArr[index] ? "Yep." : "Nope.");
+      }
+    else
+      {
+        std::cout << "Could not find " << numToFind << " in the array: ";
+      }
+
+    return 0;
+  }
+#+end_src
+
+*** 2.1 Linear Search
+Linear search is a sequential search algorithm and is one of the
+easiest to implement. Essentially, it works by going through the
+entire vector one-by-one, comparing the number desired with the number
+requested. Below, you an see that the implementation is just a simple
+for loop. 
+
+#+begin_src cpp :results raw :output drawer
+  // Example problem
+  #include <assert.h>
+  #include <iostream>
+  #include <vector>
+  #include <random>
+
+  std::vector<int> gen_rand_num(unsigned short length)
+  {
+    std::vector<int> rand_vector;
+    for (int i = 0; i < length; i++)
+      {
+        rand_vector.emplace_back(std::rand() % 20 + 1);
+      }
+    return rand_vector;
+  }
+
+  void print_vector(std::vector<int> v)
+  {
+    std::cout << "[ " << v[0];
+    for (int i = 1; i < v.size(); i++)
+      {
+        std::cout << ", " << v[i];
+      }
+    std::cout << " ]" << std::endl;
+  }
+
+  // Linear search algorithm (very simple)
+  int search(std::vector<int> arr, int element)
+  {
+    for (int i = 0; i < arr.size(); i++)
+      {
+        if (arr[i] == element)
+          {
+            return i;
+          }
+        else
+          {
+            continue;
+          }
+      }
+
+    // If cannot find a number, return -1.
+    return -1;
+  }
+
+  int main ()
+  {
+    // Create the new vector
+    std::vector myArr = gen_rand_num(100);
+
+    // Search for a specific number
+    int numToFind = std::rand() % 20 + 1;
+
+    // Search myArr for element
+    int index = search(myArr, numToFind);
+
+    print_vector(myArr);
+
+    if (index != -1)
+      {
+        std::cout << "Find: " << numToFind << "\n"
+                  << "Index: " << index << "\n"
+                  << "Is equal? " << (numToFind == myArr[index] ? "Yep." : "Nope.");
+      }
+    else
+      {
+        std::cout << "Could not find " << numToFind << " in the array.";
+      }
+
+    return 0;
+  }
+#+end_src
+
+#+RESULTS:
+[ 4, 7, 18, 16, 14, 16, 7, 13, 10, 2, 3, 8, 11, 20, 4, 7, 1, 7, 13, 17, 12, 9, 8, 10, 3, 11, 3, 4, 8, 16, 10, 3, 3, 19, 10, 8, 14, 17, 12, 3, 10, 14, 2, 20, 5, 18, 19, 5, 16, 11, 14, 7, 12, 1, 17, 14, 3, 11, 17, 2, 6, 6, 5, 8, 17, 6, 7, 10, 14, 18, 5, 16, 3, 6, 15, 8, 15, 5, 4, 11, 8, 9, 17, 19, 9, 5, 4, 12, 15, 20, 13, 1, 17, 9, 20, 13, 7, 7, 15, 20 ]
+Find: 16
+Index: 3
+Is equal? Yep.
