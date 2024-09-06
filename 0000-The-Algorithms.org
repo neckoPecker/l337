@@ -8,6 +8,8 @@
   - [[#10-sorting-algorithms][1.0 Sorting Algorithms]]
     - [[#11-bubble-sort][1.1 Bubble Sort]]
     - [[#12-insertion-sort][1.2 Insertion Sort]]
+  - [[#20-search-algorithms][2.0 Search Algorithms]]
+    - [[#21-linear-search][2.1 Linear Search]]
 :END:
 
 ** Introduction
@@ -224,3 +226,154 @@ is $O(n^2)$, like bubble sort.
 #+RESULTS:
 | Unsorted Vector: | [ 84, 87, 78, 16, 94, 36, 87, 93, 50, 22 ] |
 | Sorted Vector:   | [ 16, 22, 36, 50, 78, 84, 87, 87, 93, 94 ] |
+
+** 2.0 Search Algorithms
+
+Given an $n$ array list of numbers, find the index where an element is
+located (otherwise, return -1 if it does not exist).
+
+The below gives a template for a solution to the search problem.
+#+begin_src cpp :results raw :output drawer
+  // Example problem
+  #include <assert.h>
+  #include <iostream>
+  #include <vector>
+  #include <random>
+
+  std::vector<int> gen_rand_num(unsigned short length)
+  {
+    std::vector<int> rand_vector;
+    for (int i = 0; i < length; i++)
+      {
+        rand_vector.emplace_back(std::rand() % 20 + 1);
+      }
+    return rand_vector;
+  }
+
+  void print_vector(std::vector<int> v)
+  {
+    std::cout << "[ " << v[0];
+    for (int i = 1; i < v.size(); i++)
+      {
+        std::cout << ", " << v[i];
+      }
+    std::cout << " ]" << std::endl;
+  }
+
+  // Implement this search method
+  int search(std::vector<int> arr, int element);
+
+  int main ()
+  {
+    // Create the new vector
+    std::vector myArr = gen_rand_num(100);
+
+    // Search for a specific number
+    int numToFind = std::rand() % 20 + 1;
+
+    // Search myArr for element
+    int index = search(myArr, numToFind);
+
+    print_vector(myArr);
+
+    if (index != -1)
+      {
+        std::cout << "Find: " << numToFind << "\n"
+                  << "Index: " << index << "\n"
+                  << "Is equal? " << (numToFind == myArr[index] ? "Yep." : "Nope.");
+      }
+    else
+      {
+        std::cout << "Could not find " << numToFind << " in the array: ";
+      }
+
+    return 0;
+  }
+#+end_src
+
+*** 2.1 Linear Search
+Linear search is a sequential search algorithm and is one of the
+easiest to implement. Essentially, it works by going through the
+entire vector one-by-one, comparing the number desired with the number
+requested. Below, you an see that the implementation is just a simple
+for loop. 
+
+#+begin_src cpp :results raw :output drawer
+  // Example problem
+  #include <assert.h>
+  #include <iostream>
+  #include <vector>
+  #include <random>
+
+  std::vector<int> gen_rand_num(unsigned short length)
+  {
+    std::vector<int> rand_vector;
+    for (int i = 0; i < length; i++)
+      {
+        rand_vector.emplace_back(std::rand() % 20 + 1);
+      }
+    return rand_vector;
+  }
+
+  void print_vector(std::vector<int> v)
+  {
+    std::cout << "[ " << v[0];
+    for (int i = 1; i < v.size(); i++)
+      {
+        std::cout << ", " << v[i];
+      }
+    std::cout << " ]" << std::endl;
+  }
+
+  // Linear search algorithm (very simple)
+  int search(std::vector<int> arr, int element)
+  {
+    for (int i = 0; i < arr.size(); i++)
+      {
+        if (arr[i] == element)
+          {
+            return i;
+          }
+        else
+          {
+            continue;
+          }
+      }
+
+    // If cannot find a number, return -1.
+    return -1;
+  }
+
+  int main ()
+  {
+    // Create the new vector
+    std::vector myArr = gen_rand_num(100);
+
+    // Search for a specific number
+    int numToFind = std::rand() % 20 + 1;
+
+    // Search myArr for element
+    int index = search(myArr, numToFind);
+
+    print_vector(myArr);
+
+    if (index != -1)
+      {
+        std::cout << "Find: " << numToFind << "\n"
+                  << "Index: " << index << "\n"
+                  << "Is equal? " << (numToFind == myArr[index] ? "Yep." : "Nope.");
+      }
+    else
+      {
+        std::cout << "Could not find " << numToFind << " in the array.";
+      }
+
+    return 0;
+  }
+#+end_src
+
+#+RESULTS:
+[ 4, 7, 18, 16, 14, 16, 7, 13, 10, 2, 3, 8, 11, 20, 4, 7, 1, 7, 13, 17, 12, 9, 8, 10, 3, 11, 3, 4, 8, 16, 10, 3, 3, 19, 10, 8, 14, 17, 12, 3, 10, 14, 2, 20, 5, 18, 19, 5, 16, 11, 14, 7, 12, 1, 17, 14, 3, 11, 17, 2, 6, 6, 5, 8, 17, 6, 7, 10, 14, 18, 5, 16, 3, 6, 15, 8, 15, 5, 4, 11, 8, 9, 17, 19, 9, 5, 4, 12, 15, 20, 13, 1, 17, 9, 20, 13, 7, 7, 15, 20 ]
+Find: 16
+Index: 3
+Is equal? Yep.
